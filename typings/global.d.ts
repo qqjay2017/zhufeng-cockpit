@@ -11,3 +11,5 @@ declare namespace NodeJS {
 }
 
 declare const __DEV__: boolean;
+declare const particlesJS: any;
+
