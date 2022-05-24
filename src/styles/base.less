@@ -1,6 +1,4 @@
-:root {
-    --primary:rgba(73, 255, 223, 1);
-}
+@import url(./variables.less);
 
 .w-100 {
   width: 100%;
@@ -29,3 +27,14 @@ body {
     overflow: hidden;
   }
   
+
+  @media (max-width: 600px) {
+    html,
+    body,
+    #root {
+      width: 100vw;
+      height: unset;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+  }

@@ -5,10 +5,10 @@ import styled from "styled-components";
 
 const BgStyle = styled.div`
   width: 100vw;
-  height: 100;
+  height: 100vh;
   position: relative;
   background-color: rgb(8, 14, 19);
-  background-image: radial-gradient(
+  /* background-image: radial-gradient(
     circle,
     #111c25,
     #0c131a,
@@ -20,7 +20,16 @@ const BgStyle = styled.div`
     #060b0f,
     #05090c,
     #030608
-  );
+  ); */
+  background-image:url(${require('@/assets/img/common/bg01.png')});
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+
+
+  @media (max-width: 600px) {
+    width: 100%;
+  height: unset;
+  }
 `;
 
 const ParticlesWrap = styled.div`
@@ -37,7 +46,7 @@ const ChildrenWrap = styled.div`
     height:100%;
     position:relative;
     z-index:2;
-    color:#fff;
+    color:var(--color-light-text);
 `
 
 function CommonBg({ children }: PropsWithChildren<{}>) {
