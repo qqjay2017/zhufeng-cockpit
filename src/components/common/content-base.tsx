@@ -5,7 +5,7 @@ const ContentBase = styled.div`
   width: 100%;
   height: calc(100vh - var(--space-header));
   padding: 24px;
-  @media (max-width: 600px) {
+  @media (max-width: var( --space-mobile )) {
     width: 100%;
     height: unset;
   }

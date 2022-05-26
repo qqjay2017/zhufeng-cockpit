@@ -1,7 +1,8 @@
 import React, { PropsWithChildren, useEffect } from "react";
 import 'particles.js'
 import styled from "styled-components";
-
+import { cssVar } from "@/styles/variables";
+console.log(cssVar)
 
 const BgStyle = styled.div`
   width: 100vw;
