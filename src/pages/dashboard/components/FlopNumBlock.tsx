@@ -4,7 +4,7 @@ import FlopNum from "@/components/FlopNum";
 import React, { useEffect, useState } from "react";
 
 function FlopNumBlock() {
-  const [value,setValue] = useState('12345678901')
+  const [value,setValue] = useState('1234567890')
   const [timeout,setTimeout] = useState(2000)
 
   const setRandomValue = ()=>{
