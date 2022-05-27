@@ -1,8 +1,9 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { memo, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { Transition } from "react-transition-group";
 interface FlopNumProps {
   value: string | number;
+  timeout?:number;
 }
 
 const FlopNumWrapOverflow = styled.div`
@@ -13,9 +14,9 @@ const FlopNumWrapOverflow = styled.div`
   justify-content:center;
 `
 
-const FlopNumItemWrap = styled.div<{ translateY: number }>`
+const FlopNumItemWrap = styled.div<{ translateY: number,timeout:number }>`
   transform: translate(0, ${(p) => p.translateY}px);
-  transition: transform 3000ms;
+  transition: transform ${p=>p.timeout||1000}ms;
   
 `;
 const FlopNumItemNum = styled.div<{ height: string }>`
@@ -32,7 +33,7 @@ const FlopNumWrap = styled.div`
   
 `;
 
-function FlopNumItem({ value }: { value: string }) {
+function FlopNumItem({ value ,timeout}: { value: string ,timeout:number}) {
   const blockHeight = 30;
   const allNum = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
   const midIndex = Math.ceil(allNum.length / 2) - 1;
@@ -50,7 +51,7 @@ function FlopNumItem({ value }: { value: string }) {
 
   return (
 
-      <FlopNumItemWrap translateY={translateYMemo}>
+      <FlopNumItemWrap translateY={translateYMemo} timeout={timeout}>
         {allNum.map((num) => {
           return (
             <FlopNumItemNum key={num} height={blockHeight + "px"}>
@@ -63,7 +64,7 @@ function FlopNumItem({ value }: { value: string }) {
   );
 }
 
-function FlopNum({ value }: FlopNumProps) {
+function FlopNum({ value ,timeout}: FlopNumProps) {
   const valueArrMemo = useMemo(() => {
     if (!value) {
       return ["0"];
@@ -74,11 +75,11 @@ function FlopNum({ value }: FlopNumProps) {
     <FlopNumWrapOverflow>
     <FlopNumWrap>
       {valueArrMemo.map((v, index) => {
-        return <FlopNumItem key={index} value={v}></FlopNumItem>;
+        return <FlopNumItem key={index} value={v} timeout={timeout||1000}></FlopNumItem>;
       })}
     </FlopNumWrap>
     </FlopNumWrapOverflow>
   );
 }
 
-export default FlopNum;
+export default memo(FlopNum);
