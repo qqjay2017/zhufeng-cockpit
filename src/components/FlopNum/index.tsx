@@ -1,6 +1,6 @@
-import React, { memo, useEffect, useMemo, useState } from "react";
+import React, { memo, useMemo, } from "react";
 import styled from "styled-components";
-import { Transition } from "react-transition-group";
+
 interface FlopNumProps {
   value: string | number;
   timeout?:number;
