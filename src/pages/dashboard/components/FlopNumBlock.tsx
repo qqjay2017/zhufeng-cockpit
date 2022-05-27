@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 
 function FlopNumBlock() {
   const [value,setValue] = useState('12345678901')
+  const [timeout,setTimeout] = useState(2000)
 
   const setRandomValue = ()=>{
     setValue(v=>{
@@ -16,17 +17,23 @@ function FlopNumBlock() {
         return addRes[0]
 
       })
-      console.log(newVArr,'newVArr')
+     
       return newVArr.join('')
     })
+  }
+  const setT = (v:string)=>{
+    if(String(Number(v))==='NaN'){
+      return
+    }
+    setTimeout(Number(v))
   }
   return (
     <GridArea area="flopnum">
       <Xpanel1>
         <div className="flex-center w-100 h-100">
-          当前值:{value}
+         动画时间: <input value={timeout} onChange={(e)=>setT(e.target.value)} style={{width:'50px'}} />
           <button onClick={()=>setRandomValue()}>新增对应位置下标的值</button>
-          <FlopNum  value={value} timeout={2000} />
+          <FlopNum  value={value} timeout={timeout} />
         </div>
       </Xpanel1>
     </GridArea>
