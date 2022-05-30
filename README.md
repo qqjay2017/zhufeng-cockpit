@@ -68,4 +68,7 @@ echarts画地图
 地图下钻(直辖市特殊处理)
 echarts地图下钻到leaflet
 
-可能需要1-2周时间准备,最近项目赶,上班时间基本都要100%投入,只能晚上和早上准备
+
+## 编译less
+npm install -g less 
+ lessc space.less space.css
