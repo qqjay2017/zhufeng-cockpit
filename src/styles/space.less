@@ -1,0 +1,90 @@
+// 间距css生成
+
+@spaces: {
+    4: 4px;
+    8: 8px;
+    12: 12px;
+    16: 16px;
+    24: 24px;
+    38: 38px;
+}
+
+;
+
+@position : {
+    t: top;
+    b: bottom;
+    l: left;
+    r: right;
+
+
+}
+
+
+// https://lesscss.org/functions/ 搜索 Setting variable names 
+
+each(@spaces, .(@value, @key, @index) {
+        each(@position , .(@pv, @pk, @pi) {
+                .p-@{key} {
+                    padding: @value;
+                }
+
+                ;
+
+                .p@{pk}-@{key} {
+                    padding-@{pv}: @value;
+                }
+
+                ;
+
+
+                .px-@{key} {
+                    padding-left: @value;
+                    padding-right: @value;
+                }
+
+                ;
+
+                .py-@{key} {
+                    padding-top: @value;
+                    padding-bottom: @value;
+                }
+
+                ;
+
+
+                .m-@{key} {
+                    margin: @value;
+                }
+
+                ;
+
+                .m@{pk}-@{key}-@{key} {
+                    margin-@{pv}: @value;
+                }
+
+                ;
+
+
+
+                .mx-@{key} {
+                    margin-left: @value;
+                    margin-right: @value;
+                }
+
+                ;
+
+                .my-@{key} {
+                    margin-top: @value;
+                    margin-bottom: @value;
+                }
+
+                ;
+
+
+            }
+
+        )
+    }
+
+);

@@ -27,12 +27,16 @@ function FlopNumBlock() {
     }
     setTimeout(Number(v))
   }
+
+  useEffect(()=>{
+    setInterval(setRandomValue,5000)
+  },[])
   return (
     <GridArea area="flopnum">
       <Xpanel1>
         <div className="flex-center w-100 h-100">
-         动画时间: <input value={timeout} onChange={(e)=>setT(e.target.value)} style={{width:'50px'}} />
-          <button onClick={()=>setRandomValue()}>新增对应位置下标的值</button>
+        
+        
           <FlopNum  value={value} timeout={timeout} />
         </div>
       </Xpanel1>
