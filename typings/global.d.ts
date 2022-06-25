@@ -3,6 +3,9 @@ declare global {
     NoCaptcha: any;
   }
 }
+interface Window {
+  NoCaptcha: string;
+}
 
 declare namespace NodeJS {
   interface Process {

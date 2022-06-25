@@ -1,4 +1,10 @@
 // 间距css生成
+@space-type: {
+    m: margin;
+    p: padding;
+}
+
+;
 
 @spaces: {
     4: 4px;
@@ -20,71 +26,32 @@
 
 }
 
+;
+
 
 // https://lesscss.org/functions/ 搜索 Setting variable names 
 // 同理可生成各种工具类
-each(@spaces, .(@value, @key, @index) {
-        each(@position , .(@pv, @pk, @pi) {
-                .p-@{key} {
-                    padding: @value;
+each(@space-type, .(@type, @typeKey) {
+
+
+        each(@spaces, .(@value, @key, @index) {
+                .@{typeKey}-@{key} {
+
+                    @{type}:@value;
                 }
 
-                ;
-
-                .p@{pk}-@{key} {
-                    padding-@{pv}: @value;
-                }
-
-                ;
-
-
-                .px-@{key} {
-                    padding-left: @value;
-                    padding-right: @value;
-                }
-
-                ;
-
-                .py-@{key} {
-                    padding-top: @value;
-                    padding-bottom: @value;
-                }
-
-                ;
-
-
-                .m-@{key} {
-                    margin: @value;
-                }
-
-                ;
-
-                .m@{pk}-@{key}-@{key} {
-                    margin-@{pv}: @value;
-                }
-
-                ;
-
-
-
-                .mx-@{key} {
-                    margin-left: @value;
-                    margin-right: @value;
-                }
-
-                ;
-
-                .my-@{key} {
-                    margin-top: @value;
-                    margin-bottom: @value;
-                }
-
-                ;
-
-
+                each(@position, .(@posValue,@posKey){
+                    .@{typeKey}@{posKey}-@{key} {
+        
+                        @{type}-@{posValue}:@value;
+                    }
+        
+                });
             }
 
-        )
+        );
+
+     
     }
 
 );
