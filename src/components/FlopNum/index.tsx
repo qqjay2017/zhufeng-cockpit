@@ -1,85 +1,90 @@
-import React, { memo, useMemo, } from "react";
+import React, { useMemo } from "react";
 import styled from "styled-components";
 
 interface FlopNumProps {
-  value: string | number;
-  timeout?:number;
+  value: string | number | undefined;
 }
+const lineHeight = 30;
+const allNum = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 
-const FlopNumWrapOverflow = styled.div`
-  overflow:hidden;
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-`
-
-const FlopNumItemWrap = styled.div<{ translateY: number,timeout:number }>`
-  transform: translate(0, ${(p) => p.translateY}px);
-  transition: transform ${p=>p.timeout||1000}ms;
-  
-`;
-const FlopNumItemNum = styled.div<{ height: string }>`
-  padding: 8px 10px;
+const NumberItem = styled.div<{ height: string }>`
+  height: ${(props) => props.height};
+  line-height: ${(props) => props.height};
   font-size: 14px;
-  height: ${(p) => p.height || "30px"};
-  line-height: 14px;
-  text-align: center;
+  color: #fff;
+  padding: 0 4px;
+`;
+const NumberItemWrap = styled.div<{ translateY: number }>`
+  transform: translateY(${(props) => props.translateY + "px"});
+  transition: transform 1s;
 `;
 
-const FlopNumWrap = styled.div`
-  display: flex;
-  position:relative;
-  
-`;
-
-function FlopNumItem({ value ,timeout}: { value: string ,timeout:number}) {
-  const blockHeight = 30;
-  const allNum = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
-  const midIndex = Math.ceil(allNum.length / 2) - 1;
- 
-
-  const translateYMemo = useMemo(() => {
-    const isInclude = allNum.includes(value);
-    if (!isInclude) {
-      return blockHeight / 2;
+function FlopNumItem({
+  value,
+  lineHeight,
+}: {
+  value: string;
+  lineHeight: number;
+}) {
+  const translateYmemo = useMemo(() => {
+    const index = allNum.findIndex((v) => v === value);
+    if (index < 0) {
+      // 没找到,传进来一个不认识的
+      return lineHeight;
+    } else {
+      // 找到了
+      return -1 * (index * lineHeight);
     }
-    let curIndex = allNum.findIndex((v) => v === value);
-    return (midIndex - curIndex) * blockHeight + blockHeight / 2;
-  }, [value, allNum]);
-
-
+  }, [value, lineHeight]);
   return (
-
-      <FlopNumItemWrap translateY={translateYMemo} timeout={timeout}>
-        {allNum.map((num) => {
-          return (
-            <FlopNumItemNum key={num} height={blockHeight + "px"}>
-              {num}
-            </FlopNumItemNum>
-          );
-        })}
-      </FlopNumItemWrap>
-
+    <NumberItemWrap translateY={translateYmemo}>
+      {allNum.map((num) => (
+        <NumberItem key={num} height={lineHeight + "px"}>
+          {num}
+        </NumberItem>
+      ))}
+    </NumberItemWrap>
   );
 }
 
-function FlopNum({ value ,timeout}: FlopNumProps) {
-  const valueArrMemo = useMemo(() => {
+const FlopNumContainer = styled.div<{ height: string }>`
+  display: flex;
+  width: 100%;
+  height: ${(props) => props.height};
+  overflow: hidden;
+
+  justify-content: center;
+`;
+const FlopNumWrap = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+function FlopNum({ value }: FlopNumProps) {
+  const valueArr = useMemo(() => {
     if (!value) {
       return ["0"];
     }
     return String(value).split("");
   }, [value]);
   return (
-    <FlopNumWrapOverflow>
     <FlopNumWrap>
-      {valueArrMemo.map((v, index) => {
-        return <FlopNumItem key={index} value={v} timeout={timeout||1000}></FlopNumItem>;
-      })}
+      <FlopNumContainer height={lineHeight + "px"}>
+        {valueArr.map((val, index) => {
+          return (
+            <FlopNumItem
+              key={index}
+              value={val}
+              lineHeight={lineHeight}
+            ></FlopNumItem>
+          );
+        })}
+      </FlopNumContainer>
     </FlopNumWrap>
-    </FlopNumWrapOverflow>
   );
 }
 
-export default memo(FlopNum);
+export default FlopNum;

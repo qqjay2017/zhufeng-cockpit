@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import 'src/styles/base.less';
+import Tip from '@/components/Tip';
 
-import Router from 'components/router';
+
+import './index.less'
+import Routes from './components/Routes';
+import 'normalize.css/normalize.css'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <Router />
-  </React.StrictMode>
+ <Routes />
 );
 

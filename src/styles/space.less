@@ -2,56 +2,46 @@
 @space-type: {
     m: margin;
     p: padding;
-}
+  };
 
-;
-
-@spaces: {
-    4: 4px;
+@space : {
     8: 8px;
-    12: 12px;
     16: 16px;
-    24: 24px;
-    38: 38px;
-}
+    32: 32px;
+    160: 160px;
 
-;
+};
+
 
 @position : {
     t: top;
     b: bottom;
     l: left;
     r: right;
+};
+
+// .p-20 {
+//     padding: 20px;
+// }
+// .pt-20 {
+//     padding-top: 20px;
+// }
 
 
-}
+each(@space-type, .(@spaceTypeValue,@spaceTypeKey){
 
-;
+    each(@space, .(@spaceValue,@spaceKey){
 
+        .@{spaceTypeKey}-@{spaceKey} {
+            @{spaceTypeValue}:@spaceValue;
+        }
 
-// https://lesscss.org/functions/ 搜索 Setting variable names 
-// 同理可生成各种工具类
-each(@space-type, .(@type, @typeKey) {
-
-
-        each(@spaces, .(@value, @key, @index) {
-                .@{typeKey}-@{key} {
-
-                    @{type}:@value;
-                }
-
-                each(@position, .(@posValue,@posKey){
-                    .@{typeKey}@{posKey}-@{key} {
-        
-                        @{type}-@{posValue}:@value;
-                    }
-        
-                });
+        each(@position , .(@positionValue,@positionKey){
+            .@{spaceTypeKey}@{positionKey}-@{spaceKey} {
+                @{spaceTypeValue}-@{positionValue}:@spaceValue;
             }
+        });
 
-        );
+    });
 
-     
-    }
-
-);
+});

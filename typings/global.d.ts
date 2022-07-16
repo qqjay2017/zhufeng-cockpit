@@ -1,11 +1,8 @@
-declare global {
-  interface Window {
+
+
+interface Window {
     NoCaptcha: any;
   }
-}
-interface Window {
-  NoCaptcha: string;
-}
 
 declare namespace NodeJS {
   interface Process {
@@ -15,4 +12,3 @@ declare namespace NodeJS {
 
 declare const __DEV__: boolean;
 declare const particlesJS: any;
-

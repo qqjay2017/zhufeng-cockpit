@@ -1,17 +1,29 @@
-const { resolve } = require('path')
 const CracoLessPlugin = require("craco-less");
+const {resolve} = require('path')
 
 /** @type {import('@craco/craco').CracoConfig} */
-const config = {
-    plugins: [{ plugin: CracoLessPlugin }],
+module.exports = {
     webpack:{
         alias:{
-            "@":resolve("src"),
-            "components":resolve("src/components"),
+            '@':resolve('src'),
+            '@components':resolve('src/components'),
         }
-    }
-    
-
-}
-
-module.exports = config
+    },
+    devServer:{
+      proxy:{
+        '/v1/':{
+          target: 'http://localhost:3001',
+        
+          changeOrigin: true,
+          pathRewrite: { '^': '' },
+        }
+      }
+    },
+  
+  plugins: [
+    {
+      plugin: CracoLessPlugin,
+     
+    },
+  ],
+};
